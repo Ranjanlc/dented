@@ -1,0 +1,244 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 50vh 50vh;
+}
+.container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.auth {
+  position: absolute;
+  /* top: 80px;
+    left: 20%; */
+  width: 50%;
+  top: 50%;
+  z-index: 6999;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* height: 50%; */
+  /* max-width: 550px; */
+  border-radius: 60px;
+  background: rgba(255, 255, 255, 0.71);
+  display: flex;
+  flex-direction: column;
+
+  /* justify-content: center; */
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+  animation: floatAnimation 2s ease-in-out infinite;
+}
+.auth.remove {
+  animation: none;
+}
+.auth.none {
+  display: none;
+}
+@keyframes floatAnimation {
+  0% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-3px);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+}
+
+.header {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 414px;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+}
+.header h1 {
+  color: var(--WeddingStore, #e20a37);
+  font-family: "Satoshi";
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.input-container {
+  min-width: 414px;
+  /* padding-left: 80px; */
+  display: flex;
+  z-index: 20000;
+  flex-direction: column;
+  /* align-self: center; */
+  gap: 30px;
+}
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  width: 100%;
+}
+.inputs.password {
+  position: relative;
+  width: 100%;
+}
+.inputs.password svg {
+  position: absolute;
+  bottom: -8%;
+  right: 10px;
+  transform: translate(0, -50%);
+  color: #949494;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+.inputs input {
+  border: none;
+  outline: none;
+  padding-bottom: 5px;
+  background: transparent;
+  font-size: 16px;
+  border-bottom: 2px solid #e20a37;
+  color: #4f4f4f;
+  font-weight: 500;
+}
+.forgot {
+  align-self: flex-end;
+  color: #3b67ff;
+}
+.login {
+  height: 50px;
+  border-radius: 8px;
+  background: var(--WeddingStore, #e20a37);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  z-index: 10000;
+  cursor: pointer;
+}
+.login svg {
+  width: 18px;
+  height: 18px;
+  animation: rotate 0.7s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  0% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+.line {
+  /* margin: 7px 0 10px; */
+  width: 100%;
+  height: 1px;
+  background-color: #e20a358e;
+  position: relative;
+  z-index: 0;
+}
+
+.line p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #e20a358e;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  width: 54px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.71);
+  z-index: 1;
+}
+
+.socialButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+  gap: 10px;
+}
+.backdrop {
+  position: fixed;
+  z-index: 200;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  min-height: 100vh;
+  max-height: 100vh;
+  background-color: #000000c2;
+}
+
+.socialButtons button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 45px;
+  border-radius: 6px;
+  /* background: #2c2c2e; */
+  gap: 16px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.socialButtons button img {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+}
+.signup a {
+  color: #3b67ff;
+  cursor: pointer;
+  z-index: 10000;
+  position: relative;
+}
+
+.socialButtons button p {
+  /* color: #f2f2f2; */
+  font-size: 16px;
+  width: 171.66px;
+  text-align: left;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+@media (max-width: 864px) {
+  .input-container {
+    min-width: 0;
+  }
+  .header h1 {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 600px) {
+  .auth {
+    width: 90%;
+    left: 10px;
+    transform: none;
+    top: 80px;
+    animation: none;
+    gap: 10px;
+  }
+  .input-container {
+    gap: 20px;
+  }
+  .header h1 {
+    font-size: 20px;
+  }
+  .header p {
+    font-size: 14px;
+  }
+}

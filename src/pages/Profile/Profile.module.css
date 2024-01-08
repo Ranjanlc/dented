@@ -1,0 +1,382 @@
+.editProfile {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  /* background-color: #1c1c1e; */
+  padding: 0 0px 67px;
+  width: 100%;
+  /* min-height: 100vh; */
+  padding-top: 100px;
+}
+
+.topBackground {
+  height: 300px;
+  width: 100%;
+  background-color: #d8d8d8;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.topBackground input {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.topBackground p {
+  /* color: #868686; */
+  font-family: "Bai Jamjuree";
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.container {
+  margin-top: -80px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1344px;
+  padding: 0 32px;
+}
+
+.container .top {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px 0;
+}
+
+.imageInput {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.imageInput .labelInput {
+  width: 100%;
+  max-width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.imageInput .labelInput label {
+  color: #4353ff;
+  font-family: "Bai Jamjuree";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  z-index: 1;
+}
+
+.imageInput .labelInput input {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+.imageInput .labelInput .disabled {
+  cursor: not-allowed;
+  color: #868686;
+  z-index: 3;
+}
+.imageInput .labelInput input:disabled {
+  color: #868686;
+  cursor: not-allowed;
+}
+
+.upper {
+  width: 100%;
+  max-width: 200px;
+  height: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #868686;
+  border-radius: 5px;
+  z-index: 1;
+}
+
+.upper img {
+  width: 100%;
+  max-width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.lower {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.lower .otherDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  width: 100%;
+}
+
+.lower .otherDetails .socialLinks {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+}
+
+.lower .otherDetails .socialLinks h1 {
+  /* color: #fff; */
+  font-family: "Bai Jamjuree";
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.lower .row {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  align-items: center;
+  gap: 40px;
+}
+
+.lower .row .inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+  max-width: 250px;
+}
+
+.lower .row .inputs label {
+  /* color: #fff; */
+  font-family: "Bai Jamjuree";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.lower .row .inputs input::placeholder {
+  color: black;
+}
+.lower .row .inputs input,
+.lower .row .inputs textarea {
+  padding: 10px 20px;
+  width: 100%;
+  height: 38px;
+  color: #2c2c2e;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  background-color: #949494;
+  font-family: "Bai Jamjuree";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.lower .row .inputs textarea {
+  height: 100px;
+  resize: none;
+}
+.tags {
+  display: flex;
+  color: #000;
+  font-weight: 600;
+  gap: 10px;
+}
+.tags span {
+  background-color: #868686;
+  border-radius: 20px;
+  padding: 10px 15px 8px;
+  cursor: pointer;
+}
+.tags .active {
+  background-color: #e20a37;
+}
+
+.lower .otherDetails .socialLinks .row .inputs {
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.editProfile
+  .container
+  .top
+  .lower
+  .otherDetails
+  .socialLinks
+  .row
+  .inputs
+  svg {
+  width: 24px;
+  height: 24px;
+}
+
+.container button {
+  border-radius: 8px;
+  background: #ff0101;
+  display: flex;
+  padding: 14px 30px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  color: #fff;
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: "Bai Jamjuree";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+
+.container button:disabled {
+  cursor: not-allowed;
+  background-color: #949494;
+}
+
+.container button svg {
+  width: 18px;
+  height: 18px;
+  animation: rotate 0.7s ease-in-out infinite;
+}
+
+.dropzone-container {
+  color: black;
+  border: 1px black dashed;
+  height: 300px;
+  /* margin: 0 100px; */
+  width: 60%;
+  align-self: center;
+}
+.dropzone {
+  height: 100%;
+  /* width: 80%; */
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+}
+.dropzone p {
+  font-size: 24px;
+  text-align: center;
+}
+.files {
+  /* background-color: white; */
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 30px;
+  width: 60%;
+  margin-top: 50px;
+}
+.files li {
+  width: 100%;
+  justify-self: center;
+  padding: 0 10px;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #8a8787;
+}
+.files img {
+  margin: 10px 0;
+  height: 90px;
+}
+.files svg {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+.button.upload svg {
+  width: 18px;
+  height: 18px;
+  animation: rotate 0.7s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  0% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .container {
+    padding: 0 16px;
+  }
+  .files {
+    width: 90%;
+  }
+}
+@media (max-width: 1200px) {
+  .tags {
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 1024px) {
+  .lower .row .inputs {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .lower .row {
+    flex-direction: column;
+  }
+  .tags {
+    flex-wrap: wrap;
+  }
+}

@@ -1,0 +1,50 @@
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-around;
+  width: 100vw;
+  background-color: rgb(241, 237, 232);
+}
+.header h1 {
+  color: skyblue;
+  cursor: pointer;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.actions a {
+  font-size: 20px;
+}
+.active {
+  color: rgb(138, 138, 138);
+  text-decoration: underline;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 24px;
+  }
+  .actions a {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 425px) {
+  .header,
+  .actions {
+    gap: 10px;
+  }
+  .header h1 {
+    font-size: 16px;
+  }
+  .actions a {
+    font-size: 12px;
+  }
+}
