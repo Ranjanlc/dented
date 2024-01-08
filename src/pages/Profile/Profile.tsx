@@ -6,7 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "../../store/Store";
 import { AppDispatch } from "../Auth/Signup/Signup";
-import { initializeAuth } from "../../store/slices/AuthSlice";
+import {
+  initializeAuth,
+  refreshAccessToken,
+  updateUser,
+} from "../../store/slices/AuthSlice";
 
 const Profile: FC = () => {
   const navigate = useNavigate();
@@ -29,6 +33,18 @@ const Profile: FC = () => {
       email: userDetails?.email || "",
     });
   }, [userDetails]);
+
+  useEffect(() => {
+    const tokenRefreshInterval = setInterval(() => {
+      const storedToken = localStorage.getItem("dented-token");
+
+      if (storedToken) {
+        dispatch(refreshAccessToken());
+      }
+    }, 10 * 1000); // 15 minutes
+
+    return () => clearInterval(tokenRefreshInterval);
+  }, [dispatch]);
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { name, value } = e.target;
     setuserInputDetails({ ...userInputDetails, [name]: value });
@@ -36,6 +52,20 @@ const Profile: FC = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    dispatch(
+      updateUser({
+        payload: {
+          fullName: userInputDetails.name,
+          email: userInputDetails.email,
+        },
+        callback: (message, status) => {
+          if (status === "error") {
+            return toast.error(message);
+          }
+          toast.success(message);
+        },
+      })
+    );
   };
 
   return (

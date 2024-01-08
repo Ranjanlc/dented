@@ -8,6 +8,10 @@ interface Signup {
   email: string;
   password: string;
 }
+interface Update {
+  fullName: string;
+  email: string;
+}
 
 export const initializeAuth = createAsyncThunk(
   "user/initializeAuth",
@@ -76,7 +80,7 @@ export const loginUser = createAsyncThunk(
         dispatch(
           signUpSuccess({
             userDetails: response.data.user,
-            Token: response.data.token,
+            token: response.data.token,
           })
         );
         localStorage.setItem("dented-token", response.data.token);
@@ -87,6 +91,61 @@ export const loginUser = createAsyncThunk(
     } catch (error) {
       dispatch(signUpFail(error.response.data.message));
       callback(error.response.data.message, "error");
+    }
+  }
+);
+export const updateUser = createAsyncThunk(
+  "user/updateUser",
+  async (
+    {
+      payload,
+      callback,
+    }: { payload: Update; callback: (msg: string, status: string) => void },
+    { dispatch }
+  ) => {
+    try {
+      dispatch(signUpRequest());
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem("dented-token")}`,
+      };
+      const response = await axios.put(`${API_URL}/user`, payload, { headers });
+      if (response.status === 200) {
+        dispatch(
+          signUpSuccess({
+            userDetails: response.data.user as UserDetails,
+            token: response.data.token,
+          })
+        );
+        localStorage.setItem("dented-token", response.data.token);
+        callback("User Updated Successfully", "success");
+      } else {
+        throw new Error(response.data.message);
+      }
+    } catch (error) {
+      dispatch(signUpFail(error.response.data.message));
+      callback(error.response.data.message, "error");
+    }
+  }
+);
+export const refreshAccessToken = createAsyncThunk(
+  "user/refresh",
+  async (_, { dispatch }) => {
+    try {
+      const response = await axios.get(`${API_URL}/user/refresh-token`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("dented-token")}`,
+        },
+      });
+
+      const { data } = response;
+
+      if (response.status === 200) {
+        // Update the stored token with the new one
+        localStorage.setItem("dented-token", data.token);
+      }
+    } catch (error) {
+      console.error("Error refreshing token:", error);
     }
   }
 );
@@ -116,7 +175,7 @@ export const AuthSlice = createSlice({
     },
     signUpSuccess: (state, action) => {
       state.loading = false;
-      state.userDetails = action.payload.userDetails as UserDetails;
+      state.userDetails = action.payload.userDetails;
       state.token = action.payload.token;
       state.error = null;
     },
