@@ -7,8 +7,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { signUpUser } from "../../../store/slices/AuthSlice";
 import { store } from "../../../store/Store";
 import { toast } from "react-toastify";
-// import { toast } from "react-toastify";
-// import { CustomAxiosError } from "axios";
 
 type ShowPw = {
   index: number;
@@ -61,40 +59,9 @@ export default function Signup() {
     return <> {<div className={styles.backdrop} onClick={onClick} />}</>;
   };
 
-  // const handleFormSubmit = (e: FormEvent) => {
-  //   e.preventDefault();
-  //   if (pwRef.current?.value !== confirmPwRef.current?.value) {
-  //     console.log("Password doesnot match");
-  //     toast.error("Password doesnot match");
-  //   } else {
-  //     let data = {
-  //       email: emailRef.current?.value ?? "",
-  //       password: pwRef.current?.value ?? "",
-  //       name: nameRef.current?.value ?? "",
-  //     };
-  //     console.log(data);
-  //     mutate(data, {
-  //       onSuccess: ({ token }) => {
-  //         queryClient.invalidateQueries({ queryKey: ["userDetails"] });
-  //         localStorage.setItem("wedding-token", token);
-  //         toast.success("Signed up successfully");
-  //         router.push("/");
-  //       },
-  //       onError: (error) => {
-  //         const axioserror = error as CustomAxiosError;
-  //         const { message } = axioserror.response?.data;
-  //         toast.error(message);
-  //       },
-  //     });
-  //   }
-  // };
   return (
     <>
       <main>
-        {/* <img src="/images/auth/bg-1.jpg" alt="hello" />
-        <img src="/images/auth/bg-2.jpg" alt="hello" width={720} height={512} />
-        <img src="/images/auth/bg-3.jpg" alt="hello" width={720} height={512} />
-        <img src="/images/auth/bg-4.jpg" alt="hello" width={720} height={512} /> */}
         {createPortal(
           <Backdrop
             onClick={() => {

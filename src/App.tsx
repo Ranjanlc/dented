@@ -4,22 +4,38 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "./pages/Auth/Login/Login";
 import Signup from "./pages/Auth/Signup/Signup";
-import Home from "./pages/Home/Home";
 import { useSelector } from "react-redux";
 import { IRootState } from "./store/Store";
 import Profile from "./pages/Profile/Profile";
 
 export default function App() {
-  const { userDetails, error } = useSelector((state: IRootState) => state.auth);
+  const { userDetails, error, loading } = useSelector(
+    (state: IRootState) => state.token
+  );
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            userDetails && !error && !loading ? (
+              <Navigate to="/profile" />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
 
         <Route
           path="/login"
-          element={!userDetails ? <Login /> : <Navigate to="/profile" />}
+          element={
+            !userDetails && error && !loading ? (
+              <Login />
+            ) : (
+              <Navigate to="/profile" />
+            )
+          }
         />
         <Route
           path="/signup"

@@ -2,7 +2,6 @@ import React, { FC, FormEvent, useEffect, useState } from "react";
 import styles from "./Profile.module.css";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "../../store/Store";
 import { AppDispatch } from "../Auth/Signup/Signup";
@@ -10,14 +9,14 @@ import {
   initializeAuth,
   refreshAccessToken,
   updateUser,
-} from "../../store/slices/AuthSlice";
+} from "../../store/slices/TokenSlice";
+import { resetAuthState } from "../../store/slices/AuthSlice";
 
 const Profile: FC = () => {
-  const navigate = useNavigate();
-
-  const { userDetails, loading } = useSelector(
-    (state: IRootState) => state.auth
+  const { userDetails, loading, error } = useSelector(
+    (state: IRootState) => state.token
   );
+  console.log(userDetails);
   const dispatch = useDispatch<AppDispatch>();
   const [userInputDetails, setuserInputDetails] = useState({
     name: "",
@@ -25,7 +24,8 @@ const Profile: FC = () => {
   });
   useEffect(() => {
     !userDetails && !loading && dispatch(initializeAuth());
-  }, [dispatch, userDetails, loading]);
+    !userDetails && !loading && error && dispatch(resetAuthState());
+  }, [dispatch, userDetails, loading, error]);
 
   useEffect(() => {
     setuserInputDetails({
@@ -41,7 +41,7 @@ const Profile: FC = () => {
       if (storedToken) {
         dispatch(refreshAccessToken());
       }
-    }, 10 * 1000); // 15 minutes
+    }, 14 * 60 * 1000); // 15 minutes
 
     return () => clearInterval(tokenRefreshInterval);
   }, [dispatch]);

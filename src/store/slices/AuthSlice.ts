@@ -1,39 +1,13 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios, { CustomAxiosError } from "axios";
 
-const API_URL = "http://localhost:5000";
+export const API_URL = "http://localhost:5000";
 
 interface Signup {
   fullName?: string;
   email: string;
   password: string;
 }
-interface Update {
-  fullName: string;
-  email: string;
-}
-
-export const initializeAuth = createAsyncThunk(
-  "user/initializeAuth",
-  async (_, { dispatch }) => {
-    try {
-      // Assuming you have an API endpoint to fetch user details based on the token
-      dispatch(signUpRequest());
-      const token = localStorage.getItem("dented-token");
-      const response = await axios.get(`${API_URL}/user`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (response.status === 200) {
-        console.log(response.data.user);
-        dispatch(authorizationSuccess(response.data.user));
-      } else {
-        throw new Error(response.data.message);
-      }
-    } catch (error) {
-      dispatch(signUpFail(error.response.data.message));
-    }
-  }
-);
 
 export const resetAuthState = createAction("user/resetAuthState");
 
@@ -58,8 +32,9 @@ export const signUpUser = createAsyncThunk(
         throw new Error(response.data.message);
       }
     } catch (error) {
-      dispatch(signUpFail(error.response.data.message));
-      callback(error.response.data.message, "error");
+      const axiosErr = error as CustomAxiosError;
+      dispatch(signUpFail(axiosErr.response.data.message));
+      callback(axiosErr.response.data.message, "error");
     }
   }
 );
@@ -89,63 +64,10 @@ export const loginUser = createAsyncThunk(
         throw new Error(response.data.message);
       }
     } catch (error) {
-      dispatch(signUpFail(error.response.data.message));
-      callback(error.response.data.message, "error");
-    }
-  }
-);
-export const updateUser = createAsyncThunk(
-  "user/updateUser",
-  async (
-    {
-      payload,
-      callback,
-    }: { payload: Update; callback: (msg: string, status: string) => void },
-    { dispatch }
-  ) => {
-    try {
-      dispatch(signUpRequest());
-      const headers = {
-        Authorization: `Bearer ${localStorage.getItem("dented-token")}`,
-      };
-      const response = await axios.put(`${API_URL}/user`, payload, { headers });
-      if (response.status === 200) {
-        dispatch(
-          signUpSuccess({
-            userDetails: response.data.user as UserDetails,
-            token: response.data.token,
-          })
-        );
-        localStorage.setItem("dented-token", response.data.token);
-        callback("User Updated Successfully", "success");
-      } else {
-        throw new Error(response.data.message);
-      }
-    } catch (error) {
-      dispatch(signUpFail(error.response.data.message));
-      callback(error.response.data.message, "error");
-    }
-  }
-);
-export const refreshAccessToken = createAsyncThunk(
-  "user/refresh",
-  async (_, { dispatch }) => {
-    try {
-      const response = await axios.get(`${API_URL}/user/refresh-token`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("dented-token")}`,
-        },
-      });
-
-      const { data } = response;
-
-      if (response.status === 200) {
-        // Update the stored token with the new one
-        localStorage.setItem("dented-token", data.token);
-      }
-    } catch (error) {
-      console.error("Error refreshing token:", error);
+      const axiosErr = error as CustomAxiosError;
+      dispatch(signUpFail(axiosErr.response.data.message));
+      dispatch(signUpFail(axiosErr.response.data.message));
+      callback(axiosErr.response.data.message, "error");
     }
   }
 );
@@ -179,19 +101,10 @@ export const AuthSlice = createSlice({
       state.token = action.payload.token;
       state.error = null;
     },
-    changePWSuccess: (state) => {
-      state.loading = false;
-      state.error = null;
-    },
     signUpFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
       state.userDetails = null;
-    },
-    authorizationSuccess: (state, action) => {
-      state.loading = false;
-      state.userDetails = action.payload;
-      state.error = null;
     },
     resetAuthState: (state) => {
       state.loading = false;
@@ -201,12 +114,6 @@ export const AuthSlice = createSlice({
   },
 });
 
-export const {
-  signUpRequest,
-  signUpSuccess,
-  signUpFail,
-  authorizationSuccess,
-  changePWSuccess,
-} = AuthSlice.actions;
+export const { signUpRequest, signUpSuccess, signUpFail } = AuthSlice.actions;
 
 export default AuthSlice.reducer;
